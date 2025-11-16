@@ -1,0 +1,45 @@
+# Spring Boot 애플리케이션 설정
+spring:
+  application:
+    name: kafka-to-es-hexagonal
+
+# Kafka 설정 (Spring Boot가 자동으로 읽음)
+kafka:
+  bootstrap-servers: localhost:9092
+
+  consumer:
+    topic: messages
+    group-id: message-consumer-group
+    poll-timeout-ms: 100
+    auto-offset-reset: earliest
+    enable-auto-commit: false
+    max-poll-records: 100
+    fetch-min-bytes: 1
+    fetch-max-wait-ms: 500
+    session-timeout-ms: 30000
+    heartbeat-interval-ms: 3000
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  producer:
+    acks: all
+    retries: 3
+    batch-size: 16384
+    linger-ms: 1
+    buffer-memory: 33554432
+
+# 로깅 설정
+logging:
+  level:
+    root: INFO
+    com.example.kafkaes: INFO
+    org.apache.kafka: WARN
+    org.springframework: INFO
+    org.elasticsearch: WARN
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# 서버 포트
+server:
+  port: 8090
