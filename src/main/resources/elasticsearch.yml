@@ -1,0 +1,54 @@
+# Elasticsearch 설정
+elasticsearch:
+  # 연결 정보
+  connection:
+    host: localhost
+    port: 9200
+    scheme: http  # http 또는 https
+
+  # 인증 (선택적)
+  auth:
+    enabled: false
+    username: elastic
+    password: changeme
+
+  # 인덱스 설정
+  index:
+    # 기본 인덱스 이름
+    name: messages
+
+    # 날짜별 인덱스 생성 여부
+    # true면: messages-2024-11-09
+    # false면: messages
+    date-based: false
+
+    # 인덱스 설정
+    shards: 1
+    replicas: 0
+
+    # 리프레시 간격 (색인 후 검색 가능 시간)
+    refresh-interval: 1s
+
+  # Bulk 설정 (배치 색인)
+  bulk:
+    # 한번에 색인할 최대 문서 수
+    actions: 100
+
+    # 한번에 색인할 최대 크기 (MB)
+    size-mb: 5
+
+    # 플러시 간격 (밀리초)
+    flush-interval-ms: 1000
+
+    # 동시 요청 수
+    concurrent-requests: 1
+
+  # 타임아웃 설정
+  timeout:
+    connect-ms: 5000
+    socket-ms: 60000
+
+  # 재시도 설정
+  retry:
+    max-attempts: 3
+    delay-ms: 1000
